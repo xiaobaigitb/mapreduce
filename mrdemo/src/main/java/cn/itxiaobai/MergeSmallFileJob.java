@@ -1,6 +1,5 @@
 package cn.itxiaobai;
 
-import com.day05.MergeFileJob;
 import com.google.common.io.Resources;
 import com.utils.CDUPUtils;
 import org.apache.hadoop.conf.Configuration;
