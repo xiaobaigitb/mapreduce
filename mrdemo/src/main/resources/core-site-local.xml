@@ -4,23 +4,8 @@
         <name>fs.defaultFS</name>
         <value>hdfs://master2:9000</value>
     </property>
-    <!--<property>-->
-        <!--<name>mapreduce.framework.name</name>-->
-        <!--<value>yarn</value>-->
-    <!--</property>-->
-    <!--&lt;!&ndash;&ndash;&gt;-->
-    <!--<property>-->
-        <!--<name>yarn.resourcemanager.scheduler.address</name>-->
-        <!--<value>master2:8030</value>-->
-    <!--</property>-->
     <property>
         <name>fs.hdfs.impl</name>
         <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
     </property>
-
-    <!--&lt;!&ndash;可以通过在配置文件中指定jar包位置的方式，解决noClass问题&ndash;&gt;-->
-    <!--<property>-->
-        <!--<name>mapred.jar</name>-->
-        <!--<value>/home/hadoop/hadoopdemo.jar</value>-->
-    <!--</property>-->
 </configuration>
