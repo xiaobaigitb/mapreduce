@@ -1,0 +1,18 @@
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://master2:9000</value>
+    </property>
+    <!--<property>-->
+        <!--<name>mapreduce.framework.name</name>-->
+        <!--<value>yarn</value>-->
+    <!--</property>-->
+    <!--<property>-->
+        <!--<name>yarn.resourcemanager.scheduler.address</name>-->
+        <!--<value>master1.hadoop:8030</value>-->
+    <!--</property>-->
+    <property>
+        <name>fs.hdfs.impl</name>
+        <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
+    </property>
+</configuration>
