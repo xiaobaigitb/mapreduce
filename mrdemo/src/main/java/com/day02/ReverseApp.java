@@ -24,7 +24,6 @@ import java.util.Iterator;
 public class ReverseApp {
     public static class ReverseMapper extends Mapper<LongWritable,Text,Text, Text> {
         //map方法每次执行一行数据，会被循环调用map方法（有多少行就调用多少次）
-
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             //获取key所在的文件名
@@ -40,7 +39,6 @@ public class ReverseApp {
     public static class ReverseReducer extends Reducer<Text, Text, Text, Text> {
         //每次处理一个key,会被循环调用，有多少个key就会调用几次
         //获取map处理的数据 hello 集合（用于存储key相同的value--1）
-
         @Override
         protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
             Iterator<Text> iterator = values.iterator();
@@ -81,10 +79,10 @@ public class ReverseApp {
         //运行任务 true：表示打印详情
         boolean flag = job.waitForCompletion(true);
         if (flag){
-            System.out.println("使用mapreduce来数据去重操作的结果...");
+            System.out.println("使用mapreduce来倒排索引操作的结果...");
             CDUPUtils.readContent("/reout/part-r-00000");
         }else {
-            System.out.println(flag+",读取文件失败");
+            System.out.println(flag+",文件加载失败");
         }
     }
 }
