@@ -30,7 +30,7 @@ public class MarketApp {
         }
     }
 
-    public static class MarketReduce extends Reducer<Text,NullWritable,Text,NullWritable> {
+    public static class MarketReduce extends Reducer<Text,NullWritable,Text,IntWritable> {
         private int max = 0;
         Text maxRecord = null;
         @Override
@@ -47,22 +47,19 @@ public class MarketApp {
 
         @Override
         protected void cleanup(Context context) throws IOException, InterruptedException {
-            context.write(maxRecord,NullWritable.get());
+            context.write(maxRecord,new IntWritable(max));
         }
     }
-
-
-
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration coreSiteConf = new Configuration();
-        coreSiteConf.addResource(Resources.getResource("core-site-master2.xml"));
+        coreSiteConf.addResource(Resources.getResource("core-site-local.xml"));
         //设置一个任务,后面是job的名称
         Job job = Job.getInstance(coreSiteConf, "Reverse");
         //设置job的运行类，就是此类
-        //job.setJarByClass(MarketApp.class);
+        job.setJarByClass(MarketApp.class);
 
         //将打的jar包自动上传临时目录，运行之后就删除了--自己看不到
-        job.setJar("mrdemo/target/mrdemo-1.0-SNAPSHOT.jar");
+        //job.setJar("mrdemo/target/mrdemo-1.0-SNAPSHOT.jar");
 
         //设置Map和Reduce处理类
         job.setMapperClass(MarketMapper.class);
@@ -73,7 +70,7 @@ public class MarketApp {
         job.setMapOutputValueClass(NullWritable.class);
         //设置job/reduce输出类型
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(NullWritable.class);
+        job.setOutputValueClass(IntWritable.class);
         //设置任务的输入路径
         FileInputFormat.addInputPath(job, new Path("/work"));
         //设置任务的输出路径--保存结果(这个目录必须是不存在的目录)

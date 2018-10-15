@@ -5,6 +5,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,6 +47,9 @@ public class CDUPUtils {
         FileSystem fileSystem = FileSystem.get(configuration);
         //open打开文件--获取文件的输入流用于读取数据
         FSDataInputStream inputStream = fileSystem.open(fileName);
+//        byte[] buffer = new byte[1024];
+//        IOUtils.readFully(inputStream,buffer,0,inputStream.available());
+//        System.out.println(new String(buffer));
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         //一行一行的读取数据
         LineNumberReader lineNumberReader = new LineNumberReader(inputStreamReader);
@@ -56,7 +60,7 @@ public class CDUPUtils {
             returnValue.add(str);
         }
         //打印数据到控制台
-        System.out.println("MapReduce算法操作的文件内容如下：");
+        System.out.println("MapReduce算法操作的文件内容加载如下：");
         for (String read :
                 returnValue) {
             System.out.println(read);
