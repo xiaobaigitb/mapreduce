@@ -31,12 +31,67 @@ public class HBaseDDL {
     }
     public static void main(String[] args) throws IOException {
         String  familyNames[]={"nature","social"};
-        byte [][] splitKeys ={{'a'},{'g'},{'m'}};
-        createTable("test_hbase",familyNames,splitKeys);
+        byte [][] splitKeys ={{'f'},{'l'},{'o'}};//f-----l-----o(临界值)
+        //createTable("test_hbase",familyNames,splitKeys);
         //insert("test_hbase","luban","nature","height","250");
-        //dropTable("t1");
+        //insert("test_hbase","libai","nature","height","1250");
+        //dropTable("test_hbase");
+        //delete("test_hbase", "libai");
         //testPutAll("test_hbase");
+        //testGet("test_hbase","luban","nature","height");
+        //testScan("test_hbase","libai","luban","nature","height");
+        //testScanWithCacheAndBatch(5,4,"test_hbase","libai","luban","nature","height");
     }
+
+    /**
+     * 组合使用扫描器缓存和批量大小
+     * @param caching
+     * @param batch
+     * @throws IOException
+     */
+    private static void testScanWithCacheAndBatch(int caching, int batch,String tableName,
+                                                  String rowKey0,String rowKey1,
+                                                  String family, String column) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Scan scan = new Scan(Bytes.toBytes(rowKey0), Bytes.toBytes(rowKey1));
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        scan.setCaching(caching);
+        scan.setBatch(batch);
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!
+        ResultScanner scanner = table.getScanner(scan);
+        for(Result result : scanner) {
+            String r = Bytes.toString(result.getValue(Bytes.toBytes(family), Bytes.toBytes(column)));
+            System.out.println(r);
+        }
+        table.close();
+    }
+
+    /**
+     * 查看某个rowkey范围的数据，按字典顺序排序
+     */
+    private static void testScan(String tableName,String rowKey0,String rowKey1,String family, String column) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Scan scan = new Scan(Bytes.toBytes(rowKey0), Bytes.toBytes(rowKey1));
+        ResultScanner scanner = table.getScanner(scan);
+        for(Result result : scanner) {
+            String r = Bytes.toString(result.getValue(Bytes.toBytes(family), Bytes.toBytes(column)));
+            System.out.println(r);
+        }
+        table.close();
+    }
+
+    /**
+     * 查看某个cell的值
+     */
+    private static void testGet(String tableName,String rowKey,String family, String column) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Get get = new Get(Bytes.toBytes(rowKey));
+        Result resut = table.get(get);
+        String cell = Bytes.toString(resut.getValue(Bytes.toBytes(family), Bytes.toBytes(column)));
+        System.out.println(cell);
+        table.close();
+    }
+
     /**
      * 批量插入数据
      */
