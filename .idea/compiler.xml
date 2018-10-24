@@ -6,12 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="hbasedemo" />
         <module name="hdfsdemo" />
+        <module name="hivedemo" />
         <module name="mrdemo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="hbasedemo" target="6" />
       <module name="hdfsdemo" target="1.5" />
+      <module name="hivedemo" target="1.5" />
       <module name="mrdemo" target="1.5" />
     </bytecodeTargetLevel>
   </component>

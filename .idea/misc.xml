@@ -5,6 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/hdfsdemo/pom.xml" />
         <option value="$PROJECT_DIR$/mrdemo/pom.xml" />
+        <option value="$PROJECT_DIR$/hivedemo/pom.xml" />
+        <option value="$PROJECT_DIR$/hbasedemo/pom.xml" />
       </list>
     </option>
   </component>

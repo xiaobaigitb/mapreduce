@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="hivedemo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/hivedemo_jar</output-path>
+    <root id="archive" name="hivedemo.jar">
+      <element id="module-output" name="hivedemo" />
+    </root>
+  </artifact>
+</component>
